@@ -8,9 +8,8 @@ keythroy@gmail.com
 
 Install / Usage
 -------
-$ git clone --link
-$ cd keythroy/php-bidding-crawler-brazil/Src/
-$ composer update;
+$ git clone https://github.com/keythroy/php-bidding-crawler.git
+$ composer update
 $ php index.php
 
 ... nao consegui terminar :(
