@@ -16,5 +16,6 @@ $ php index.php
 @todo
 
 - fazer pesquisa por paramteros funcionar..
+- melhorar autoloader
 - formatar saida dos dados
 - tratar excecoes
