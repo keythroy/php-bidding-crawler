@@ -12,10 +12,10 @@ $ git clone https://github.com/keythroy/php-bidding-crawler.git
 $ composer update
 $ php index.php
 
-... nao consegui terminar :(
+... nao consegui terminar por falta de tempo... :(
 @todo
 
 - fazer pesquisa por paramteros funcionar..
-- melhorar autoloader
+- melhorar autoloader/gerenciamento de dependencias
 - formatar saida dos dados
 - tratar excecoes
