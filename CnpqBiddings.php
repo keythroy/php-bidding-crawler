@@ -17,27 +17,21 @@ class CnpqBiddings extends AbstractCrawler
     
     
     /**
-     Array param[
-            'busca-solicitacoes' => $param['busca-solicitacoes'], 
-            'filtro-ano' => $param['filtro-ano'],
-            'filtro-categoria' => $param['filtro-ano']
-     ];
+     Argumentos de pesquisa do CNPQ, 
+     * $param = ['solicitacoes','ano' ,'categoria' ];
      */    
     public function search($param){ 
         
         $this->form = $this->crawler->filter('form[id=formLicit]')->form();
-        
-        if(isset( $param['filtro-ano'] )){
-            //$this->form['filtro-ano']->select($param['filtro-ano']);
-        }
+//        
+//        if(isset( $param['ano'] )){
+//            //$this->form['filtro-ano']->select($param['filtro-ano']);
+//        }
         
         //params ...
         
         $this->formCrawler = $this->client->submit( $this->form );
         $this->response = $this->formatResponseHtmlToJson();
-        
-        //$this-> = $this->formatResponseHtml($strHtml);
-        
         
         return TRUE;
     }
@@ -65,14 +59,33 @@ class CnpqBiddings extends AbstractCrawler
     }
     public function getResponse(){
         
-        $html = HtmlDomParser::str_get_html( $this->formCrawler->html() );
-        echo  "\n######     CNPQ  ######\n";
-        //$this->response = $this->formatResponseHtmlToJson();
-       // $response .= "\n$this->response\n\n";
-       $response = $html->find('div[class=licitacoes] > h4.titLicitacao');
-       foreach($response as $licitacao){
-           echo $licitacao."\n"; 
+       $html = HtmlDomParser::str_get_html( $this->formCrawler->html() );
+       $licitacoes = $html->find('.licitacoes');
+       
+       echo "..::: Total ". count($licitacoes) . " resultados encontratos :::..\n";
+       
+       $arrLicitacoes = [];
+       foreach( $licitacoes as $licitacao){
+           $item['titulo'] = $licitacao->find('.titLicitacao',0)->plaintext;
+           $item['objeto'] = $licitacao->find('.integra',0)->plaintext;
+           $listaAnexo = $licitacao->find('.download-list > li > a');
+
+           //$item['objeto'] = 0)->plaintext;
+           echo '>>>> ';
+           echo $item['titulo']."\n";
+           echo str_replace("  ", '', $item['objeto'])."\n";
+           
+           foreach($listaAnexo as $anexo){
+               echo '- ' . $anexo->plaintext . "\n";
+           }
+           
+           echo '<<<<'; 
+           echo "\n";
+           
+           $arrLicitacoes[] = $item;
        }
+       
+       
        
     }
 }

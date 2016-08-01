@@ -9,19 +9,18 @@ require_once 'SebraeBiddings.php';
 use keythroy\BiddingsCrawler\CnpqBiddings;
 //use keythroy\BiddingsCrawler\SebraeBiddings;
 
-echo "Word:";
+print "Busca:";
 $handle = fopen ("php://stdin","r");
-$word = fgets($handle);
+$busca = fgets($handle);
 
-echo "Year:";
+print "Ano:";
 $handle = fopen ("php://stdin","r");
-$year = fgets($handle);
-
+$ano = fgets($handle);
 
 $CNPQ = new CnpqBiddings();
 $CNPQ->search([  //not working yet
-     'filtro-ano' => $year,
-    'filtro-busca' => $word
+     'ano' => $ano,
+    'busca' => $busca
 ]);
 print $CNPQ->getResponse()."\n\n";
 
